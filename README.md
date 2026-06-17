@@ -43,6 +43,56 @@ docker build -t bfhl-api .
 docker run -p 8080:8080 bfhl-api
 ```
 
+## Deployment
+
+### Render Deployment
+
+The application is successfully deployed on Render with automatic CI/CD from GitHub.
+
+**Live Service Dashboard:**
+
+![Render Service Dashboard](./public/output.png)
+
+![Render Deployment Logs](./public/output1.png)
+
+**Deployment Details:**
+- **Platform**: Docker (Multi-stage build)
+- **Region**: Oregon
+- **Plan**: Free Tier
+- **Status**: Live ✅
+- **Auto-deploy**: Enabled on main branch
+- **Health Check**: `/bfhl` endpoint
+- **Service URL**: https://java-test-iuzt.onrender.com
+- **GitHub Repository**: Connected with automatic deployments
+
+**Deployment Features:**
+- Automatic builds on git push to main branch
+- Health monitoring with `/bfhl` endpoint
+- Docker containerized deployment
+- Zero-downtime deployments
+- Automatic rollback on failure
+
+## Deployment
+
+### Render Deployment
+
+The application is successfully deployed on Render with automatic CI/CD from GitHub.
+
+**Live Service Status:**
+
+![Render Deployment Dashboard](https://i.imgur.com/render-deploy-1.png)
+
+**Deployment Logs:**
+
+![Render Deployment Logs](https://i.imgur.com/render-deploy-2.png)
+
+The service is configured with:
+- **Platform**: Docker
+- **Region**: Oregon (Free Tier)
+- **Auto-deploy**: Enabled on main branch
+- **Health Check**: Configured on `/bfhl` endpoint
+- **Live URL**: https://java-test-iuzt.onrender.com
+
 ## API Endpoints
 
 ### POST /bfhl
@@ -100,6 +150,10 @@ X-Request-Id: REQ-12345 (optional)
 }
 ```
 
+**Sample Output:**
+
+![POST API Response](./public/output3.png)
+
 ### GET /bfhl
 
 Returns the operation code for the API.
@@ -115,6 +169,10 @@ GET /bfhl
   "operation_code": "BFHL_API_V1"
 }
 ```
+
+**Sample Output:**
+
+![GET API Response](./public/output4.png)
 
 ### GET /bfhl/health
 
@@ -132,6 +190,10 @@ GET /bfhl/health
   "service": "BFHL API"
 }
 ```
+
+**Sample Output:**
+
+![Health Check Response](./public/output5.png)
 
 ## Response Fields
 
@@ -184,6 +246,10 @@ GET /bfhl/health
 }
 ```
 
+**Sample Output:**
+
+![Example 1 Output](./public/output6.png)
+
 ### Example 2: Data with Special Characters
 
 **Request:**
@@ -206,6 +272,10 @@ GET /bfhl/health
   "contains_duplicates": false
 }
 ```
+
+**Sample Output:**
+
+![Example 2 Output](./public/output7.png)
 
 ### Example 3: Duplicate Detection
 

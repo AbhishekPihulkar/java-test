@@ -130,147 +130,128 @@ GET http://localhost:8080/bfhl/health
 }
 ```
 
-## 📊 Sample Output Images
+## 📊 API Output Screenshots
 
-### Example 1: Basic Input
-**Input:**
+### Example 1: POST /bfhl - Basic Input Processing
+**Request with simple mixed data:**
+
+![POST Basic Input](./docs/images/post-basic-input.png)
+
+**Response showing categorized data:**
+
+![POST Basic Output](./docs/images/post-basic-output.png)
+
+---
+
+### Example 2: POST /bfhl - Complex Data Processing
+**Request with numbers, alphabets, and special characters:**
+
+![POST Complex Input](./docs/images/post-complex-input.png)
+
+**Detailed response with analysis:**
+
+![POST Complex Output](./docs/images/post-complex-output.png)
+
+---
+
+### Example 3: POST /bfhl - Duplicate Detection
+**Request with duplicate elements:**
+
+![POST Duplicates Input](./docs/images/post-duplicates-input.png)
+
+**Response highlighting duplicates:**
+
+![POST Duplicates Output](./docs/images/post-duplicates-output.png)
+
+---
+
+### Example 4: GET /bfhl - Operation Code Check
+**Health check endpoint response:**
+
+![GET Operation Code](./docs/images/get-operation-code.png)
+
+---
+
+### Example 5: GET /bfhl/health - Health Check
+**Application health status:**
+
+![GET Health Check](./docs/images/get-health-check.png)
+
+---
+
+### Example 6: Error Response - Validation Error
+**Invalid request handling:**
+
+![Error Response](./docs/images/error-validation.png)
+
+---
+
+## 📷 How to Add Your Screenshots
+
+1. Create the directory structure:
+```bash
+mkdir -p docs/images
+```
+
+2. Take screenshots using **Postman**, **Insomnia**, **Thunder Client**, or **curl** output
+
+3. Save the screenshots with these names in `docs/images/`:
+   - `post-basic-input.png` - Basic POST request
+   - `post-basic-output.png` - Basic POST response
+   - `post-complex-input.png` - Complex POST request
+   - `post-complex-output.png` - Complex POST response
+   - `post-duplicates-input.png` - Duplicates POST request
+   - `post-duplicates-output.png` - Duplicates POST response
+   - `get-operation-code.png` - GET /bfhl response
+   - `get-health-check.png` - GET /bfhl/health response
+   - `error-validation.png` - Error response example
+
+4. The images will automatically appear in this README
+
+---
+
+## 🧪 Test Data for Screenshots
+
+Use these sample requests to generate outputs for screenshots:
+
+### Basic Input
 ```json
+POST http://localhost:8080/bfhl
+Content-Type: application/json
+
 {
   "data": ["1", "2", "A", "B"]
 }
 ```
 
-**Output:**
+### Complex Input
 ```json
-{
-  "is_success": true,
-  "request_id": "REQ-1718640000123",
-  "odd_numbers": ["1"],
-  "even_numbers": ["2"],
-  "alphabets": ["A", "B"],
-  "special_characters": [],
-  "sum": "3",
-  "largest_number": "2",
-  "smallest_number": "1",
-  "alphabet_count": 2,
-  "number_count": 2,
-  "special_character_count": 0,
-  "contains_duplicates": false,
-  "unique_element_count": 4,
-  "processing_time_ms": 8,
-  "alphabet_frequency": {
-    "A": 1,
-    "B": 1
-  },
-  "sorted_numbers": [1.0, 2.0],
-  "vowel_count": 1,
-  "consonant_count": 1,
-  "longest_alphabetic_value": "B",
-  "shortest_alphabetic_value": "A",
-  "summary": {
-    "total_elements": 4,
-    "numeric_percentage": 50.0,
-    "alphabetic_percentage": 50.0,
-    "special_character_percentage": 0.0,
-    "has_numbers": true,
-    "has_alphabets": true,
-    "has_special_characters": false
-  }
-}
-```
+POST http://localhost:8080/bfhl
+Content-Type: application/json
+X-Request-Id: REQ-COMPLEX-001
 
-### Example 2: Complex Mixed Input
-**Input:**
-```json
 {
   "data": ["10", "a", "5", "Z", "#", "20", "b", "$", "15", "c"]
 }
 ```
 
-**Output:**
+### Duplicates Input
 ```json
-{
-  "is_success": true,
-  "request_id": "REQ-1718640001456",
-  "odd_numbers": ["5", "15"],
-  "even_numbers": ["10", "20"],
-  "alphabets": ["a", "Z", "b", "c"],
-  "special_characters": ["#", "$"],
-  "sum": "50",
-  "largest_number": "20",
-  "smallest_number": "5",
-  "alphabet_count": 4,
-  "number_count": 4,
-  "special_character_count": 2,
-  "contains_duplicates": false,
-  "unique_element_count": 10,
-  "processing_time_ms": 15,
-  "alphabet_frequency": {
-    "a": 1,
-    "Z": 1,
-    "b": 1,
-    "c": 1
-  },
-  "sorted_numbers": [5.0, 10.0, 15.0, 20.0],
-  "vowel_count": 1,
-  "consonant_count": 3,
-  "longest_alphabetic_value": "c",
-  "shortest_alphabetic_value": "Z",
-  "summary": {
-    "total_elements": 10,
-    "numeric_percentage": 40.0,
-    "alphabetic_percentage": 40.0,
-    "special_character_percentage": 20.0,
-    "has_numbers": true,
-    "has_alphabets": true,
-    "has_special_characters": true
-  }
-}
-```
+POST http://localhost:8080/bfhl
+Content-Type: application/json
 
-### Example 3: With Duplicates
-**Input:**
-```json
 {
   "data": ["A", "1", "A", "2", "1", "!"]
 }
 ```
 
-**Output:**
+### Error Case (Missing data field)
 ```json
+POST http://localhost:8080/bfhl
+Content-Type: application/json
+
 {
-  "is_success": true,
-  "request_id": "REQ-1718640002789",
-  "odd_numbers": ["1", "1"],
-  "even_numbers": ["2"],
-  "alphabets": ["A", "A"],
-  "special_characters": ["!"],
-  "sum": "4",
-  "largest_number": "2",
-  "smallest_number": "1",
-  "alphabet_count": 2,
-  "number_count": 3,
-  "special_character_count": 1,
-  "contains_duplicates": true,
-  "unique_element_count": 4,
-  "processing_time_ms": 10,
-  "alphabet_frequency": {
-    "A": 2
-  },
-  "sorted_numbers": [1.0, 1.0, 2.0],
-  "vowel_count": 2,
-  "consonant_count": 0,
-  "longest_alphabetic_value": "A",
-  "shortest_alphabetic_value": "A",
-  "summary": {
-    "total_elements": 6,
-    "numeric_percentage": 50.0,
-    "alphabetic_percentage": 33.33,
-    "special_character_percentage": 16.67,
-    "has_numbers": true,
-    "has_alphabets": true,
-    "has_special_characters": true
-  }
+  "invalid": []
 }
 ```
 

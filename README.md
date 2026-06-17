@@ -1,42 +1,29 @@
 # BFHL API
 
-D.Y.Patil Campus Hiring API Round - A Spring Boot REST API for processing mixed data arrays.
+A RESTful API service for processing and analyzing mixed data arrays containing numbers, alphabets, and special characters.
 
-## 🚀 Overview
+## Overview
 
-This API processes mixed arrays containing numbers, alphabets, and special characters, providing comprehensive analysis and categorization of the input data.
+This Spring Boot application provides endpoints to process arrays of mixed data types and return comprehensive analysis including categorization, statistical information, and data insights.
 
-## 📋 Features
+## Technology Stack
 
-- ✅ Data categorization (numbers, alphabets, special characters)
-- ✅ Number analysis (odd/even, sum, largest/smallest, sorting)
-- ✅ Alphabet analysis (vowels, consonants, frequency, longest/shortest)
-- ✅ Duplicate detection
-- ✅ Performance metrics
-- ✅ Request tracking with X-Request-Id header
-- ✅ Health check endpoints
+- **Java** 21
+- **Spring Boot** 4.1.0
+- **Maven** 3.x
+- **Lombok** - Reduces boilerplate code
+- **Jakarta Validation** - Input validation
 
-## 🛠️ Tech Stack
-
-- **Java**: 21
-- **Spring Boot**: 4.1.0
-- **Maven**: 3.x
-- **Lombok**: For reducing boilerplate code
-- **Jakarta Validation**: For request validation
-
-## 📦 Installation
+## Getting Started
 
 ### Prerequisites
-- Java 21 or higher
-- Maven 3.6+
 
-### Build and Run
+- Java 21 or higher
+- Maven 3.6 or higher
+
+### Building the Project
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd java
-
 # Build the project
 ./mvnw clean install
 
@@ -46,13 +33,25 @@ cd java
 
 The application will start on `http://localhost:8080`
 
-## 🔌 API Endpoints
+### Running with Docker
 
-### 1. POST /bfhl - Process Data
+```bash
+# Build Docker image
+docker build -t bfhl-api .
+
+# Run container
+docker run -p 8080:8080 bfhl-api
+```
+
+## API Endpoints
+
+### POST /bfhl
+
+Processes a mixed array of data and returns categorized analysis.
 
 **Request:**
-```json
-POST http://localhost:8080/bfhl
+```http
+POST /bfhl
 Content-Type: application/json
 X-Request-Id: REQ-12345 (optional)
 
@@ -101,11 +100,13 @@ X-Request-Id: REQ-12345 (optional)
 }
 ```
 
-### 2. GET /bfhl - Operation Code Check
+### GET /bfhl
+
+Returns the operation code for the API.
 
 **Request:**
-```bash
-GET http://localhost:8080/bfhl
+```http
+GET /bfhl
 ```
 
 **Response:**
@@ -115,11 +116,13 @@ GET http://localhost:8080/bfhl
 }
 ```
 
-### 3. GET /bfhl/health - Health Check
+### GET /bfhl/health
+
+Health check endpoint for monitoring service status.
 
 **Request:**
-```bash
-GET http://localhost:8080/bfhl/health
+```http
+GET /bfhl/health
 ```
 
 **Response:**
@@ -130,163 +133,149 @@ GET http://localhost:8080/bfhl/health
 }
 ```
 
-## 📊 API Output Screenshots
+## Response Fields
 
-### Example 1: POST /bfhl - Basic Input Processing
-**Request with simple mixed data:**
+| Field | Type | Description |
+|-------|------|-------------|
+| is_success | boolean | Indicates if the request was processed successfully |
+| request_id | string | Unique identifier for the request |
+| odd_numbers | array | List of odd numbers from input |
+| even_numbers | array | List of even numbers from input |
+| alphabets | array | List of alphabetic characters |
+| special_characters | array | List of special characters |
+| sum | string | Sum of all numeric values |
+| largest_number | string | Largest number in the input |
+| smallest_number | string | Smallest number in the input |
+| alphabet_count | integer | Total count of alphabets |
+| number_count | integer | Total count of numbers |
+| special_character_count | integer | Total count of special characters |
+| contains_duplicates | boolean | Whether duplicates exist in input |
+| unique_element_count | integer | Count of unique elements |
+| processing_time_ms | long | Time taken to process the request |
+| alphabet_frequency | object | Frequency map of each alphabet |
+| sorted_numbers | array | Numbers sorted in ascending order |
+| vowel_count | integer | Count of vowel characters |
+| consonant_count | integer | Count of consonant characters |
+| longest_alphabetic_value | string | Alphabet with highest ASCII value |
+| shortest_alphabetic_value | string | Alphabet with lowest ASCII value |
+| summary | object | Summary statistics of the data |
 
-![POST Basic Input](./docs/images/post-basic-input.png)
+## Examples
 
-**Response showing categorized data:**
+### Example 1: Basic Mixed Data
 
-![POST Basic Output](./docs/images/post-basic-output.png)
-
----
-
-### Example 2: POST /bfhl - Complex Data Processing
-**Request with numbers, alphabets, and special characters:**
-
-![POST Complex Input](./docs/images/post-complex-input.png)
-
-**Detailed response with analysis:**
-
-![POST Complex Output](./docs/images/post-complex-output.png)
-
----
-
-### Example 3: POST /bfhl - Duplicate Detection
-**Request with duplicate elements:**
-
-![POST Duplicates Input](./docs/images/post-duplicates-input.png)
-
-**Response highlighting duplicates:**
-
-![POST Duplicates Output](./docs/images/post-duplicates-output.png)
-
----
-
-### Example 4: GET /bfhl - Operation Code Check
-**Health check endpoint response:**
-
-![GET Operation Code](./docs/images/get-operation-code.png)
-
----
-
-### Example 5: GET /bfhl/health - Health Check
-**Application health status:**
-
-![GET Health Check](./docs/images/get-health-check.png)
-
----
-
-### Example 6: Error Response - Validation Error
-**Invalid request handling:**
-
-![Error Response](./docs/images/error-validation.png)
-
----
-
-## 📷 How to Add Your Screenshots
-
-1. Create the directory structure:
-```bash
-mkdir -p docs/images
-```
-
-2. Take screenshots using **Postman**, **Insomnia**, **Thunder Client**, or **curl** output
-
-3. Save the screenshots with these names in `docs/images/`:
-   - `post-basic-input.png` - Basic POST request
-   - `post-basic-output.png` - Basic POST response
-   - `post-complex-input.png` - Complex POST request
-   - `post-complex-output.png` - Complex POST response
-   - `post-duplicates-input.png` - Duplicates POST request
-   - `post-duplicates-output.png` - Duplicates POST response
-   - `get-operation-code.png` - GET /bfhl response
-   - `get-health-check.png` - GET /bfhl/health response
-   - `error-validation.png` - Error response example
-
-4. The images will automatically appear in this README
-
----
-
-## 🧪 Test Data for Screenshots
-
-Use these sample requests to generate outputs for screenshots:
-
-### Basic Input
+**Request:**
 ```json
-POST http://localhost:8080/bfhl
-Content-Type: application/json
-
 {
   "data": ["1", "2", "A", "B"]
 }
 ```
 
-### Complex Input
+**Key Response Fields:**
 ```json
-POST http://localhost:8080/bfhl
-Content-Type: application/json
-X-Request-Id: REQ-COMPLEX-001
+{
+  "is_success": true,
+  "odd_numbers": ["1"],
+  "even_numbers": ["2"],
+  "alphabets": ["A", "B"],
+  "sum": "3",
+  "vowel_count": 1,
+  "consonant_count": 1
+}
+```
 
+### Example 2: Data with Special Characters
+
+**Request:**
+```json
 {
   "data": ["10", "a", "5", "Z", "#", "20", "b", "$", "15", "c"]
 }
 ```
 
-### Duplicates Input
+**Key Response Fields:**
 ```json
-POST http://localhost:8080/bfhl
-Content-Type: application/json
+{
+  "is_success": true,
+  "odd_numbers": ["5", "15"],
+  "even_numbers": ["10", "20"],
+  "alphabets": ["a", "Z", "b", "c"],
+  "special_characters": ["#", "$"],
+  "sum": "50",
+  "largest_number": "20",
+  "contains_duplicates": false
+}
+```
 
+### Example 3: Duplicate Detection
+
+**Request:**
+```json
 {
   "data": ["A", "1", "A", "2", "1", "!"]
 }
 ```
 
-### Error Case (Missing data field)
+**Key Response Fields:**
 ```json
-POST http://localhost:8080/bfhl
-Content-Type: application/json
-
 {
-  "invalid": []
+  "is_success": true,
+  "contains_duplicates": true,
+  "unique_element_count": 4,
+  "alphabet_frequency": {
+    "A": 2
+  },
+  "sum": "4"
 }
 ```
 
-## 🧪 Testing
+## Error Handling
 
-Run unit and integration tests:
+The API handles errors gracefully and returns appropriate HTTP status codes:
+
+**400 Bad Request** - Invalid input or validation error
+```json
+{
+  "timestamp": "2026-06-17T10:30:00.000+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Data array cannot be null",
+  "path": "/bfhl"
+}
+```
+
+**500 Internal Server Error** - Server-side processing error
+```json
+{
+  "timestamp": "2026-06-17T10:30:00.000+00:00",
+  "status": 500,
+  "error": "Internal Server Error",
+  "message": "An error occurred while processing the request",
+  "path": "/bfhl"
+}
+```
+
+## Testing
+
+Run the test suite:
 
 ```bash
 # Run all tests
 ./mvnw test
 
-# Run with coverage report
+# Run tests with coverage report
 ./mvnw clean test jacoco:report
 
-# View coverage report
-open target/site/jacoco/index.html
+# View coverage report (Windows)
+start target/site/jacoco/index.html
 ```
 
-## 🐳 Docker
-
-### Build Docker Image
-```bash
-docker build -t bfhl-api .
-```
-
-### Run Container
-```bash
-docker run -p 8080:8080 bfhl-api
-```
-
-## 📝 Sample Requests
+## Sample Requests
 
 ### Using cURL
+
 ```bash
-# POST request
+# POST request with data
 curl -X POST http://localhost:8080/bfhl \
   -H "Content-Type: application/json" \
   -H "X-Request-Id: REQ-TEST-001" \
@@ -299,78 +288,79 @@ curl http://localhost:8080/bfhl
 curl http://localhost:8080/bfhl/health
 ```
 
-### Using PowerShell (Windows)
-See `sample-requests.ps1` file for detailed examples.
+### Using PowerShell
 
-### Using Bash (Linux/Mac)
-See `sample-requests.sh` file for detailed examples.
+```powershell
+# POST request
+$body = @{
+    data = @("A", "1", "3", "z", "!", "5")
+} | ConvertTo-Json
 
-## 🏗️ Project Structure
+Invoke-RestMethod -Uri "http://localhost:8080/bfhl" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Headers @{"X-Request-Id"="REQ-TEST-001"} `
+  -Body $body
+
+# GET request
+Invoke-RestMethod -Uri "http://localhost:8080/bfhl" -Method Get
+```
+
+## Project Structure
 
 ```
 src/
 ├── main/
 │   ├── java/com/javaTest/java/
-│   │   ├── controller/          # REST controllers
+│   │   ├── controller/          # REST API controllers
+│   │   │   └── BfhlController.java
 │   │   ├── dto/                 # Data Transfer Objects
-│   │   ├── exception/           # Exception handlers
+│   │   │   ├── BfhlRequest.java
+│   │   │   ├── BfhlResponse.java
+│   │   │   ├── ErrorResponse.java
+│   │   │   └── SummaryDto.java
+│   │   ├── exception/           # Global exception handling
+│   │   │   └── GlobalExceptionHandler.java
 │   │   ├── service/             # Business logic
-│   │   └── JavaApplication.java # Main application
+│   │   │   ├── BfhlService.java
+│   │   │   └── BfhlServiceImpl.java
+│   │   └── JavaApplication.java # Main application class
 │   └── resources/
 │       └── application.properties
 └── test/
     └── java/com/javaTest/java/
-        ├── controller/          # Controller tests
-        └── service/             # Service tests
+        ├── controller/          # Controller integration tests
+        └── service/             # Service unit tests
 ```
 
-## 🔧 Configuration
+## Configuration
 
-Application properties (`src/main/resources/application.properties`):
+Configuration can be modified in `src/main/resources/application.properties`:
+
 ```properties
 server.port=8080
 spring.application.name=BFHL API
 ```
 
-## 📄 Error Handling
+## Features
 
-The API includes global exception handling for:
-- Validation errors (400 Bad Request)
-- Missing required fields
-- Invalid data formats
-- Internal server errors (500)
+- ✅ Data categorization (numbers, alphabets, special characters)
+- ✅ Numeric analysis (sum, min, max, odd/even separation)
+- ✅ Alphabetic analysis (vowels, consonants, frequency)
+- ✅ Duplicate detection
+- ✅ Statistical summaries
+- ✅ Performance metrics
+- ✅ Request tracking with custom headers
+- ✅ Comprehensive error handling
+- ✅ Input validation
+- ✅ RESTful API design
+- ✅ Health monitoring endpoints
+- ✅ Docker support
 
-**Error Response Example:**
-```json
-{
-  "timestamp": "2026-06-17T10:30:00.000+00:00",
-  "status": 400,
-  "error": "Bad Request",
-  "message": "Data array cannot be null",
-  "path": "/bfhl"
-}
-```
+## License
 
-## 🤝 Contributing
+This project is developed for educational purposes.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## Support
 
-## 📜 License
-
-This project is part of D.Y.Patil Campus Hiring API Round.
-
-## 👨‍💻 Author
-
-Campus Hiring Round Submission
-
-## 📞 Support
-
-For issues or questions, please create an issue in the repository.
-
----
-
-**Happy Coding! 🚀**
+For issues or questions, please refer to the project documentation or contact the development team.

@@ -1,0 +1,38 @@
+# Render Blueprint for BFHL API
+# This file enables Infrastructure as Code deployment on Render
+
+services:
+  # Web Service
+  - type: web
+    name: bfhl-api
+    env: docker
+    region: oregon # or singapore, frankfurt, ohio
+    plan: free # or starter, standard, pro
+    
+    # Build configuration
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    
+    # Auto-deploy on push
+    branch: main
+    
+    # Environment variables
+    envVars:
+      - key: JAVA_OPTS
+        value: -Xmx512m -Xms256m
+      - key: PORT
+        value: 8080
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+    
+    # Health check endpoint
+    healthCheckPath: /bfhl
+    
+    # Auto-scaling (for paid plans)
+    # numInstances: 1
+    
+    # Disk storage (if needed)
+    # disk:
+    #   name: data
+    #   mountPath: /data
+    #   sizeGB: 1

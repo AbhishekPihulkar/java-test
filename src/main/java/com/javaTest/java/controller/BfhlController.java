@@ -52,4 +52,15 @@ public class BfhlController {
         log.info("Received GET /bfhl health check");
         return ResponseEntity.ok("{\"operation_code\":\"BFHL_API_V1\"}");
     }
+    
+    /**
+     * GET /health - Application health check endpoint
+     * 
+     * @return Health status response
+     */
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        log.info("Received GET /health request");
+        return ResponseEntity.ok("{\"status\":\"UP\",\"service\":\"BFHL API\"}");
+    }
 }
